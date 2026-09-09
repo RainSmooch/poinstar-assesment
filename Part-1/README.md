@@ -1,5 +1,17 @@
 # Customer Support Email Agent
 
+<div align="center">
+
+<p align="center">
+  <a href="../README.md">⬅️ Kembali ke Repositori Utama</a> •
+  <a href="email_agent_architecture.svg">📊 Lihat Diagram SVG Arsitektur</a> •
+  <a href="../system_architecture_summary.pdf">📄 Dokumen Ringkasan Eksekutif PDF</a>
+</p>
+
+</div>
+
+---
+
 Agentic system design untuk mengotomatisasi pemrosesan email customer support dengan tetap menjaga kontrol manusia pada kasus berisiko tinggi dan membatasi jawaban berdasarkan internal knowledge base.
 
 ## Tujuan
@@ -13,7 +25,7 @@ Sistem dirancang untuk:
 - Mengarahkan kasus kritis ke human agent.
 - Mencegah model mengarang informasi, khususnya terkait refund policy.
 
-Requirement ini mengikuti brief Part 1 pada assessment. fileciteturn5file0L2-L11
+Requirement ini mengikuti brief Part 1 pada assessment.
 
 ## Arsitektur
 
@@ -68,7 +80,7 @@ Email langsung diarahkan ke human agent apabila:
    - Security breach
 2. Customer telah menghubungi support **lebih dari 3 kali dalam 7 hari**.
 
-Kondisi tersebut tidak menunggu proses drafting. Sistem melakukan pengecekan terlebih dahulu agar kasus berisiko tidak mendapatkan respons otomatis yang tidak sesuai. fileciteturn5file0L8-L11
+Kondisi tersebut tidak menunggu proses drafting. Sistem melakukan pengecekan terlebih dahulu agar kasus berisiko tidak mendapatkan respons otomatis yang tidak sesuai.
 
 Contoh:
 
@@ -345,25 +357,17 @@ Dengan demikian, agent memiliki beberapa titik pengambilan keputusan dan tidak h
 - Akses knowledge base menggunakan permission yang sesuai.
 - Draft kritis tidak dikirim otomatis tanpa human review.
 
-## Local Development
+## Catatan Implementasi Teknis (Blueprint Produksi)
 
-Contoh environment:
+Part 1 merupakan spesifikasi desain arsitektur (*System Design & Critical Thinking*) yang disajikan melalui dokumen analisis ini dan diagram visual [email_agent_architecture.svg](email_agent_architecture.svg). 
+
+Jika sistem ini dikembangkan lebih lanjut ke tahap implementasi kode produksi (*production deployment*), berikut adalah spesifikasi environment dan struktur modular yang direkomendasikan:
 
 ```env
 GEMINI_API_KEY=your_api_key
 ```
 
-Install dependency sesuai implementasi yang digunakan:
-
-```bash
-pip install -r requirements.txt
-```
-
-Jalankan aplikasi sesuai entry point project.
-
-## Project Structure
-
-Struktur yang direkomendasikan:
+### Rekomendasi Struktur Direktori Produksi:
 
 ```text
 .
@@ -402,7 +406,7 @@ Struktur yang direkomendasikan:
 | Reliability | Retry, timeout, fallback |
 | Operational thinking | Logging, metrics, testing, observability |
 
-Requirement mapping di atas berdasarkan brief Part 1 dan success criteria assessment. fileciteturn5file0L4-L11 fileciteturn5file0L29-L34
+Requirement mapping di atas berdasarkan brief Part 1 dan success criteria assessment.
 
 ## Success Criteria
 
@@ -411,6 +415,6 @@ Assessment mengevaluasi:
 - **System Reliability** — kemampuan menangani error dan mempertahankan performa.
 - **Code Quality** — modularity, documentation, dan clean code.
 - **Agentic Logic** — penggunaan planning/reasoning pattern, bukan sekadar script execution.
-- **Operational Thinking** — logging, testing, dan observability/AgentOps. fileciteturn5file0L29-L34
+- **Operational Thinking** — logging, testing, dan observability/AgentOps.
 
 README ini menjelaskan desain yang dapat digunakan sebagai dasar implementasi dan presentasi arsitektur saat interview.

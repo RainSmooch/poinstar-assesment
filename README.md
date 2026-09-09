@@ -51,7 +51,7 @@
 | Bagian | Fokus Tantangan | File Utama / Dokumentasi | Sorotan Solusi |
 | :--- | :--- | :--- | :--- |
 | **[Part 1](Part-1/)** | *System Design & Critical Thinking* | • [`Part-1/README.md`](Part-1/README.md)<br>• [`Part-1/email_agent_architecture.svg`](Part-1/email_agent_architecture.svg) | Pre-draft critical routing (Data loss, Outage, Breach, >3 kontak/7 hari), Grounded KB RAG, Anti-hallucination refund guardrail. |
-| **[Part 2](Part-2/)** | *Technical Implementation* | • [`Part-2/web-scraper.py`](Part-2/web-scraper.py)<br>• [`Part-2/README.md`](Part-2/README.md) | Hybrid scraping (`Requests` + `Playwright` fallback), sliding-window chunking, fact-extraction map-reduce, programmatic word guardrail (100–250 kata). |
+| **[Part 2](Part-2/)** | *Technical Implementation* | • [`Part-2/web_scraper.py`](Part-2/web_scraper.py)<br>• [`Part-2/README.md`](Part-2/README.md) | Hybrid scraping (`Requests` + `Playwright` fallback), sliding-window chunking, fact-extraction map-reduce, programmatic word guardrail (100–250 kata). |
 | **[Part 3](part-3/)** | *Practical Evaluation* | • [`part-3/app.py`](part-3/app.py) (CLI)<br>• [`part-3/web_app.py`](part-3/web_app.py) (FastAPI)<br>• [`part-3/README.md`](part-3/README.md) | State Machine LangGraph DAG, SQLite persistent checkpointer, dynamic tool decision (`Pydantic`), 134 halaman BM25 KB retrieval, DuckDuckGo search, time-awareness. |
 
 ---
@@ -205,7 +205,10 @@ assesment/
 │
 ├── Part-2/                                                    # PART 2: Technical Implementation
 │   ├── README.md                                              # Dokumentasi scraping & guardrail
-│   └── web-scraper.py                                         # Skrip scraper adaptif & summarizer
+│   ├── web_scraper.py                                         # Skrip scraper adaptif & summarizer (CLI runner)
+│   ├── web-scraper.py                                         # Wrapper kompatibilitas
+│   ├── requirements.txt                                       # Dependensi pustaka Part 2
+│   └── .env.example                                           # Templat API key Part 2
 │
 └── part-3/                                                    # PART 3: Practical Evaluation
     ├── README.md                                              # Dokumentasi lengkap asisten karya ilmiah
@@ -300,8 +303,9 @@ Untuk menjalankan pengujian scraping dan peringkasan artikel web:
 # Pindah ke direktori Part-2
 cd Part-2
 
-# Jalankan skrip scraper
-python web-scraper.py
+# Jalankan skrip scraper & summarizer (URL demo bawaan atau kustom)
+python web_scraper.py
+# Atau dengan URL kustom: python web_scraper.py "<url>"
 ```
 
 Skrip akan mengeksekusi URL uji coba, mendemonstrasikan pembersihan DOM, mekanisme fallback jika diperlukan, ekstraksi fakta, serta memvalidasi bahwa ringkasan akhir mematuhi batas 100–250 kata dengan format terstruktur.
@@ -345,9 +349,11 @@ python app.py
 Seluruh logika arsitektur agen pada Part 3 diuji secara menyeluruh menggunakan `unittest`:
 
 ```bash
-# Jalankan seluruh rangkaian tes dari folder part-3
-cd part-3
-python -m unittest discover tests
+# Dari root repositori:
+python -m unittest discover part-3/tests
+
+# Atau dari folder part-3:
+cd part-3 && python -m unittest discover tests
 ```
 
 ### Hasil Rangkaian Pengujian:

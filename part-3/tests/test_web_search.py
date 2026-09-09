@@ -1,4 +1,6 @@
 import unittest
+import os, sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from src.tools.web_search import search_web
 
 class TestWebSearch(unittest.TestCase):

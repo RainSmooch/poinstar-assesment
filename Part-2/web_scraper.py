@@ -525,6 +525,7 @@ if __name__ == "__main__":
     print(" Web Scraper & Content Summarizer (Part 2: Technical Implementation)")
     print("=" * 60)
     
+    # URL default untuk demonstrasi atau gunakan argumen terminal
     default_url = "https://www.biznetgio.com/blog/apa-itu-landing-page/"
     target_url = sys.argv[1] if len(sys.argv) > 1 else default_url
     

@@ -1,4 +1,6 @@
 import unittest
+import os, sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from langchain_core.messages import HumanMessage
 from src.nodes.thinking import ToolDecision, thinking_node, fallback_heuristic_decision
 from src.nodes.tools_node import retrieve_tools_node

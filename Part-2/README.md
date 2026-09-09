@@ -1,5 +1,17 @@
 # Web Scraper & Content Summarizer
 
+<div align="center">
+
+<p align="center">
+  <a href="../README.md">⬅️ Kembali ke Repositori Utama</a> •
+  <a href="web_scraper.py">💻 Source Code: web_scraper.py</a> •
+  <a href="../system_architecture_summary.pdf">📄 Dokumen Ringkasan Eksekutif PDF</a>
+</p>
+
+</div>
+
+---
+
 Aplikasi Python sederhana untuk mengambil konten teks dari sebuah website, membersihkan HTML, menangani halaman dinamis, memproses konten panjang, lalu menghasilkan ringkasan menggunakan Gemini.
 
 ## Tujuan
@@ -209,42 +221,52 @@ Project ini berfokus pada ekstraksi teks. Beberapa jenis konten mungkin memerluk
 | Long content | Chunking + fact extraction |
 | Summary terlalu panjang/tidak sesuai | Programmatic summary guardrail |
 
-## Running Locally
+## Panduan Menjalankan (Running Locally)
+
+Dari root repositori `assesment`:
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+# 1. Masuk ke direktori Part-2
+cd Part-2
 
-python -m venv .venv
-```
-
-Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-Linux/macOS:
-
-```bash
-source .venv/bin/activate
-```
-
-Install dependency:
-
-```bash
+# 2. Pasang dependensi pustaka
 pip install -r requirements.txt
+
+# 3. Pasang browser Playwright Chromium (untuk fallback halaman dinamis)
 playwright install chromium
+
+# 4. Salin templat konfigurasi .env
+cp .env.example .env
 ```
 
-Buat `.env`:
-
+Isi kunci API pada `.env`:
 ```env
-GEMINI_API_KEY=API_KEY_KAMU
+GEMINI_API_KEY=AIzaSy...kunci_api_gemini_anda
 ```
 
-Kemudian import dan panggil `scrape_and_summarize()` dari `web_scraper.py`.
+### Cara Eksekusi:
+
+**Opsi 1: Menjalankan Langsung via Terminal CLI (Demo Bawaan)**
+```bash
+python web_scraper.py
+```
+
+**Opsi 2: Menjalankan dengan URL Kustom Pilihan Anda**
+```bash
+python web_scraper.py "https://id.wikipedia.org/wiki/Kecerdasan_buatan"
+```
+
+**Opsi 3: Diimpor sebagai Modul Python**
+```python
+from web_scraper import scrape_and_summarize
+
+url = "https://www.biznetgio.com/blog/apa-itu-landing-page/"
+hasil = scrape_and_summarize(url)
+print(hasil)
+```
+*(Catatan: Perintah `python web-scraper.py` juga tetap didukung untuk kompatibilitas penuh).*
 
 ## License
 
 Project ini dibuat untuk keperluan technical assessment.
+

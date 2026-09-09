@@ -17,11 +17,12 @@
   </p>
 
   <p align="center">
+    <a href="../README.md">⬅️ Kembali ke Repositori Utama</a> •
+    <a href="../system_architecture_summary.pdf">📄 Ringkasan Eksekutif PDF</a> •
     <a href="#-alur--panduan-penggunaan">Panduan Penggunaan</a> •
     <a href="#-arsitektur-sistem-langgraph">Arsitektur Agen</a> •
     <a href="#-fitur-utama">Fitur Utama</a> •
     <a href="#-instalasi--konfigurasi-cepat">Instalasi</a> •
-    <a href="#-contoh-studi-kasus-percakapan">Contoh Kasus</a> •
     <a href="#-pengujian-otomatis-unit-tests">Pengujian</a>
   </p>
 
@@ -133,8 +134,8 @@ Sistem mengadopsi elemen dan filosofi lambang resmi [Universitas Negeri Malang](
 ### 2. Kloning & Pemasangan Dependensi
 Buka terminal dan pasang pustaka yang diperlukan:
 ```bash
-# Pindah ke direktori proyek
-cd um-research-agent
+# Dari root repositori assesment, pindah ke direktori part-3:
+cd part-3
 
 # Pasang paket dependensi
 pip install -r requirements.txt
@@ -249,7 +250,7 @@ Bagi pengguna yang menyukai antarmuka konsol berkecepatan tinggi tanpa browser.
 ## 📁 Struktur Direktori Proyek
 
 ```text
-um-research-agent/
+part-3/
 │
 ├── Pedoman-Penulisan-Karya-Ilmiah-2017.pdf  # Dokumen naskah resmi UM Press (134 Hlm)
 ├── app.py                                  # Antarmuka CLI interaktif berbasis terminal
@@ -308,7 +309,11 @@ Proyek ini dilengkapi dengan cakupan unit test otomatis untuk menjamin keandalan
 
 Jalankan seluruh pengujian dengan satu perintah:
 ```powershell
+# Jika berada di dalam folder part-3:
 python -m unittest discover tests
+
+# Atau jika berada di root repositori:
+python -m unittest discover part-3/tests
 ```
 
 ### Hasil Uji Rangkaian:

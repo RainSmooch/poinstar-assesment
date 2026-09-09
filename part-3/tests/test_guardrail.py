@@ -1,4 +1,6 @@
 import unittest
+import os, sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from langchain_core.messages import HumanMessage
 from src.nodes.guard import scope_guard_node, reject_node, POLITE_REJECTION_TEMPLATE
 
