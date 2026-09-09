@@ -196,6 +196,8 @@ Penilaian tantangan dievaluasi berdasarkan 4 pilar utama:
 assesment/
 ├── Agentic Architect Challenge for Developer Intern Test.pdf  # Dokumen soal resmi
 ├── README.md                                                  # Master README (Dokumen ini)
+├── system_architecture_summary.pdf                            # Dokumen 1 halaman arsitektur Part 3
+├── system_architecture_summary.html                           # Source HTML dokumen 1 halaman
 │
 ├── Part-1/                                                    # PART 1: System Design
 │   ├── README.md                                              # Dokumentasi sistem & mitigasi risiko
@@ -373,7 +375,7 @@ Cakupan pengujian otomatis meliputi:
 | Panduan Submisi Resmi | Status Kepatuhan | Lokasi Referensi |
 | :--- | :---: | :--- |
 | **Link GitHub repository berisi kode & dokumentasi** | ✅ Tercakup | Repositori ini memuat seluruh kode sumber Part 1, Part 2, dan Part 3 beserta dokumentasi lengkap. |
-| **Dokumen PDF 1 halaman arsitektur, trade-offs, & mitigasi** | ✅ Tercakup | Dijelaskan secara rinci di masing-masing sub-README ([Part-1/README.md](Part-1/README.md), [Part-2/README.md](Part-2/README.md), [part-3/README.md](part-3/README.md)) dan siap diekspor ke PDF ringkas untuk presentasi wawancara. |
+| **Dokumen PDF 1 halaman arsitektur, trade-offs, & mitigasi** | ✅ Tercakup | Berkas [system_architecture_summary.pdf](system_architecture_summary.pdf) memuat ringkasan eksekutif 1 halaman penuh untuk arsitektur, trade-offs, dan mitigasi Part 3. |
 | **Instruksi menjalankan environment lokal (dependensi, API key)** | ✅ Tercakup | Panduan terpadu pada bagian [Panduan Instalasi](#-panduan-instalasi--menjalankan-proyek). |
 | **Kesiapan presentasi arsitektur saat wawancara** | ✅ Tercakup | Dilengkapi diagram SVG arsitektur, diagram alir mermaid, serta pemetaan kriteria evaluasi teknis. |
 
