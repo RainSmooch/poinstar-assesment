@@ -126,6 +126,10 @@ def run_cli():
 
             has_chunk = False
             for chunk, meta in graph.stream(initial_state, config=config, stream_mode="messages"):
+                node_name = meta.get("langgraph_node")
+                if node_name not in ["generator_node", "reject_node"]:
+                    continue
+
                 msg_type = type(chunk).__name__
                 if msg_type == "AIMessageChunk":
                     has_chunk = True
