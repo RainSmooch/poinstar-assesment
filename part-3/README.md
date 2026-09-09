@@ -18,7 +18,6 @@
 
   <p align="center">
     <a href="../README.md">⬅️ Kembali ke Repositori Utama</a> •
-    <a href="../system_architecture_summary.pdf">📄 Ringkasan Eksekutif PDF</a> •
     <a href="#-alur--panduan-penggunaan">Panduan Penggunaan</a> •
     <a href="#-arsitektur-sistem-langgraph">Arsitektur Agen</a> •
     <a href="#-fitur-utama">Fitur Utama</a> •

@@ -196,8 +196,6 @@ Penilaian tantangan dievaluasi berdasarkan 4 pilar utama:
 assesment/
 ├── Agentic Architect Challenge for Developer Intern Test.pdf  # Dokumen soal resmi
 ├── README.md                                                  # Master README (Dokumen ini)
-├── system_architecture_summary.pdf                            # Dokumen 1 halaman arsitektur Part 3 (Practical Evaluation)
-├── system_architecture_summary.html                           # Source HTML dokumen 1 halaman Part 3
 │
 ├── Part-1/                                                    # PART 1: System Design
 │   ├── README.md                                              # Dokumentasi sistem & mitigasi risiko
@@ -381,7 +379,7 @@ Cakupan pengujian otomatis meliputi:
 | Panduan Submisi Resmi | Status Kepatuhan | Lokasi Referensi |
 | :--- | :---: | :--- |
 | **Link GitHub repository berisi kode & dokumentasi** | ✅ Tercakup | Repositori ini memuat seluruh kode sumber Part 1, Part 2, dan Part 3 beserta dokumentasi lengkap. |
-| **Dokumen PDF 1 halaman arsitektur, trade-offs, & mitigasi** | ✅ Tercakup | Berkas [system_architecture_summary.pdf](system_architecture_summary.pdf) memuat ringkasan eksekutif 1 halaman penuh untuk arsitektur, trade-offs, dan mitigasi Part 3 (Asisten Cerdas Penulisan Karya Ilmiah UM Press 2017). |
+| **Dokumen PDF 1 halaman arsitektur, trade-offs, & mitigasi** | 📄 Siap Diserahkan | Penjelasan komprehensif mengenai desain arsitektur, rekayasa trade-offs, dan mitigasi titik kegagalan telah tercakup lengkap di dokumentasi dan siap diekspor ke format PDF untuk submisi/presentasi wawancara. |
 | **Instruksi menjalankan environment lokal (dependensi, API key)** | ✅ Tercakup | Panduan terpadu pada bagian [Panduan Instalasi](#-panduan-instalasi--menjalankan-proyek). |
 | **Kesiapan presentasi arsitektur saat wawancara** | ✅ Tercakup | Dilengkapi diagram SVG arsitektur, diagram alir mermaid, serta pemetaan kriteria evaluasi teknis. |
 

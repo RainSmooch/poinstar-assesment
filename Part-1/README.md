@@ -4,8 +4,7 @@
 
 <p align="center">
   <a href="../README.md">⬅️ Kembali ke Repositori Utama</a> •
-  <a href="email_agent_architecture.svg">📊 Lihat Diagram SVG Arsitektur</a> •
-  <a href="../system_architecture_summary.pdf">📄 Dokumen Ringkasan Eksekutif PDF</a>
+  <a href="email_agent_architecture.svg">📊 Lihat Diagram SVG Arsitektur</a>
 </p>
 
 </div>

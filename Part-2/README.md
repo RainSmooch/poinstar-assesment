@@ -4,8 +4,7 @@
 
 <p align="center">
   <a href="../README.md">⬅️ Kembali ke Repositori Utama</a> •
-  <a href="web_scraper.py">💻 Source Code: web_scraper.py</a> •
-  <a href="../system_architecture_summary.pdf">📄 Dokumen Ringkasan Eksekutif PDF</a>
+  <a href="web_scraper.py">💻 Source Code: web_scraper.py</a>
 </p>
 
 </div>
