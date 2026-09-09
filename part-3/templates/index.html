@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asisten Penulisan Karya Ilmiah | Universitas Negeri Malang</title>
+  
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Marked.js untuk Markdown Parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- Custom UM Styles -->
+  <link rel="stylesheet" href="/static/css/um-style.css">
+  <link rel="icon" type="image/png" href="/static/img/Lambang-UM.png">
+</head>
+<body class="h-full flex flex-col bg-slate-50 font-sans overflow-hidden">
+
+  <!-- ================= TOP HEADER (UM NAVBAR) ================= -->
+  <header class="bg-gradient-to-r from-[#16244D] via-[#2A3D75] to-[#44599B] text-white shadow-md border-b-4 border-[#ABD305] shrink-0 z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand & UM Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full bg-white flex items-center justify-center p-0.5 shadow-md border-2 border-[#ABD305] shrink-0 overflow-hidden">
+          <img src="/static/img/Lambang-UM.png" alt="Lambang Universitas Negeri Malang" class="w-full h-full object-contain" />
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-base sm:text-lg tracking-tight text-white">UNIVERSITAS NEGERI MALANG</span>
+            <span class="hidden sm:inline-flex text-[11px] font-bold bg-[#ABD305] text-[#16244D] px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+              The Learning University
+            </span>
+          </div>
+          <p class="text-xs text-indigo-100 font-medium">Asisten Cerdas Penulisan Karya Ilmiah &bull; Edisi Pedoman 2017</p>
+        </div>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Temporal Badge -->
+        <div class="hidden lg:flex items-center gap-2 bg-[#16244D]/75 border border-white/20 text-indigo-50 text-xs px-3 py-1.5 rounded-lg shadow-inner">
+          <svg class="w-4 h-4 text-[#FFF500]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span>{{ time_info.full_date_str }}</span>
+          <span class="text-[#FFF500] font-semibold">({{ time_info.academic_year }})</span>
+        </div>
+
+        <!-- Pedoman Drawer Toggle -->
+        <button onclick="togglePedomanDrawer()" class="bg-[#FDB913] hover:bg-[#E5A408] text-[#16244D] font-bold text-xs sm:text-sm px-3.5 py-1.5 rounded-lg shadow transition flex items-center gap-1.5 border border-[#FFF500]/50">
+          <svg class="w-4 h-4 text-[#16244D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          <span class="hidden sm:inline">Jelajah Pedoman UM</span>
+          <span class="sm:hidden">Pedoman</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN LAYOUT ================= -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- ========== LEFT SIDEBAR ========== -->
+    <aside class="w-64 md:w-72 bg-white border-r border-slate-200 flex flex-col shrink-0 z-10 hidden md:flex">
+      
+      <!-- New Chat Button -->
+      <div class="p-3 border-b border-slate-100">
+        <button onclick="newChatSession()" class="w-full bg-gradient-to-r from-[#16244D] to-[#2A3D75] hover:from-[#1E2F65] hover:to-[#44599B] text-white font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm transition flex items-center justify-center gap-2 border border-[#ABD305]/40">
+          <svg class="w-4 h-4 text-[#ABD305]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+          <span>+ Sesi Konsultasi Baru</span>
+        </button>
+      </div>
+
+      <!-- Quick Topics Navigation -->
+      <div class="p-3 border-b border-slate-100">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Topik Populer</div>
+        <div class="space-y-1 text-xs">
+          <button onclick="sendQuickPrompt('Bagaimana format penulisan kutipan langsung yang lebih dari 40 kata?')" class="w-full text-left p-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-[#16244D] transition flex items-center gap-2">
+            <span class="text-[#ABD305] font-bold text-base leading-none">&bull;</span>
+            <span class="truncate">Format Kutipan &ge; 40 Kata</span>
+          </button>
+          <button onclick="sendQuickPrompt('Bagaimana sistematika bagian inti skripsi alternatif kedua?')" class="w-full text-left p-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-[#16244D] transition flex items-center gap-2">
+            <span class="text-[#ABD305] font-bold text-base leading-none">&bull;</span>
+            <span class="truncate">Sistematika Skripsi Bab 1-5</span>
+          </button>
+          <button onclick="sendQuickPrompt('Bagaimana aturan penulisan daftar rujukan untuk artikel jurnal?')" class="w-full text-left p-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-[#16244D] transition flex items-center gap-2">
+            <span class="text-[#ABD305] font-bold text-base leading-none">&bull;</span>
+            <span class="truncate">Daftar Rujukan Jurnal Ilmiah</span>
+          </button>
+          <button onclick="sendQuickPrompt('Jika menyusun skripsi sekarang, rentang 10 tahun kemutakhiran literatur mencakup tahun berapa?')" class="w-full text-left p-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-[#16244D] transition flex items-center gap-2">
+            <span class="text-[#ABD305] font-bold text-base leading-none">&bull;</span>
+            <span class="truncate">Kemutakhiran Pustaka 10 Thn</span>
+          </button>
+          <button onclick="sendQuickPrompt('Bagaimana ketentuan ukuran kertas, margin, spasi, dan jenis font?')" class="w-full text-left p-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-[#16244D] transition flex items-center gap-2">
+            <span class="text-[#ABD305] font-bold text-base leading-none">&bull;</span>
+            <span class="truncate">Kertas, Margin, & Spasi</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Past Sessions List -->
+      <div class="flex-1 overflow-y-auto p-3">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Riwayat Konsultasi</div>
+        <div id="threads-list" class="space-y-1">
+          <!-- Diisi otomatis oleh JavaScript -->
+          <div class="text-xs text-slate-400 px-2 py-1">Memuat sesi...</div>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="p-3 bg-slate-50 border-t border-slate-200 text-[11px] text-slate-500 text-center">
+        Penerbit & Percetakan UM Press &bull; 2017
+      </div>
+    </aside>
+
+    <!-- ========== CENTER CHAT AREA ========== -->
+    <main class="flex-1 flex flex-col bg-slate-50 h-full overflow-hidden relative">
+      
+      <!-- Subheader Info Bar -->
+      <div class="h-10 bg-white border-b border-slate-200 px-4 flex items-center justify-between text-xs text-slate-500 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#ABD305] shadow-[0_0_8px_#ABD305] animate-pulse"></span>
+          <span>Sesi Aktif:</span>
+          <span id="active-thread-label" class="font-mono font-semibold text-[#16244D] bg-[#EEF2FF] border border-[#5C74BF]/20 px-2 py-0.5 rounded">sesi-default</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="hidden sm:inline text-slate-600">Basis Data: 134 Halaman Pedoman UM</span>
+          <button onclick="newChatSession()" class="text-[#44599B] hover:text-[#16244D] font-bold md:hidden">
+            + Sesi Baru
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Messages Container -->
+      <div id="chat-scroll-area" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+        
+        <!-- Welcome Hero Card (Tampil jika pesan belum ada) -->
+        <div id="welcome-hero" class="max-w-2xl mx-auto my-6 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm text-center">
+          <div class="w-20 h-20 bg-white rounded-2xl mx-auto flex items-center justify-center p-2 shadow-md border-2 border-[#ABD305] mb-4">
+            <img src="/static/img/Lambang-UM.png" alt="Lambang Universitas Negeri Malang" class="w-full h-full object-contain" />
+          </div>
+          <h2 class="text-lg sm:text-xl font-bold text-[#16244D] mb-1">
+            Selamat Datang di Asisten Penulisan Karya Ilmiah
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mb-6 max-w-lg mx-auto">
+            Layanan pendampingan akademik interaktif berlandaskan dokumen resmi 
+            <strong class="text-[#44599B]">Pedoman Penulisan Karya Ilmiah Universitas Negeri Malang (UM Press 2017)</strong>.
+          </p>
+
+          <!-- Prompt Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left mb-4">
+            <button onclick="sendQuickPrompt('Bagaimana aturan pengutipan langsung kurang dari 40 kata dan 40 kata atau lebih?')" class="quick-prompt-card p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white text-xs">
+              <div class="font-bold text-[#16244D] mb-1 flex items-center gap-1.5">
+                <span class="text-[#ABD305] font-black text-sm">&bull;</span> Aturan Kutipan Langsung
+              </div>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Perbedaan kutipan &lt;40 kata dan &ge;40 kata serta format spasi dan penjorokan.</p>
+            </button>
+
+            <button onclick="sendQuickPrompt('Jelaskan sistematika bagian inti skripsi untuk penelitian kuantitatif alternatif pertama.')" class="quick-prompt-card p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white text-xs">
+              <div class="font-bold text-[#16244D] mb-1 flex items-center gap-1.5">
+                <span class="text-[#ABD305] font-black text-sm">&bull;</span> Sistematika Bab Skripsi
+              </div>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Struktur Bab 1 Pendahuluan s.d. Bab 5 Simpulan dan Saran sesuai pedoman.</p>
+            </button>
+
+            <button onclick="sendQuickPrompt('Bagaimana format penulisan rujukan artikel dalam jurnal cetak dan daring?')" class="quick-prompt-card p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white text-xs">
+              <div class="font-bold text-[#16244D] mb-1 flex items-center gap-1.5">
+                <span class="text-[#ABD305] font-black text-sm">&bull;</span> Daftar Rujukan Jurnal
+              </div>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Tata cara urutan penulis, tahun, judul artikel miring/tegak, volume, dan nomor.</p>
+            </button>
+
+            <button onclick="sendQuickPrompt('Bagaimana aturan penomoran bab, sub-bab, serta penataan tabel dan gambar?')" class="quick-prompt-card p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white text-xs">
+              <div class="font-bold text-[#16244D] mb-1 flex items-center gap-1.5">
+                <span class="text-[#ABD305] font-black text-sm">&bull;</span> Penataan Tabel & Gambar
+              </div>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Ketentuan letak nomor judul tabel (atas) dan gambar (bawah).</p>
+            </button>
+          </div>
+
+          <div class="text-[11px] text-slate-400">
+            Ketik pertanyaan bebas atau pilih salah satu topik di atas untuk memulai.
+          </div>
+        </div>
+
+        <!-- Chat Bubble Container -->
+        <div id="messages-container" class="max-w-3xl mx-auto"></div>
+
+      </div>
+
+      <!-- Bottom Chat Input Area -->
+      <div class="p-3 sm:p-4 bg-white border-t border-slate-200 shrink-0">
+        <form id="chat-form" class="max-w-3xl mx-auto flex gap-2 items-end">
+          <div class="flex-1 relative bg-slate-100 border border-slate-300 focus-within:border-[#44599B] focus-within:bg-white rounded-2xl shadow-inner transition">
+            <textarea 
+              id="chat-input"
+              rows="1"
+              placeholder="Tanyakan kaidah penulisan skripsi, tesis, sitasi, atau daftar rujukan..."
+              class="w-full bg-transparent px-4 py-3 text-sm focus:outline-none resize-none max-h-36 placeholder:text-slate-400"
+            ></textarea>
+          </div>
+          <button 
+            type="submit" 
+            id="send-btn"
+            class="bg-gradient-to-r from-[#16244D] to-[#44599B] hover:from-[#1E2F65] hover:to-[#5C74BF] text-[#FFF500] p-3 rounded-2xl shadow transition shrink-0 flex items-center justify-center border border-[#ABD305]/40"
+            title="Kirim Pesan"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
+        </form>
+        <div class="text-center text-[11px] text-slate-400 mt-2">
+          Asisten berlandaskan Pedoman Karya Ilmiah UM Edisi 2017 &bull; Gunakan Shift + Enter untuk baris baru
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ========== RIGHT PEDOMAN EXPLORER DRAWER ========== -->
+    <div 
+      id="pedoman-drawer" 
+      class="fixed inset-y-0 right-0 w-80 sm:w-96 bg-white shadow-2xl border-l border-slate-200 z-30 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col"
+    >
+      <!-- Drawer Header -->
+      <div class="p-4 bg-gradient-to-r from-[#16244D] via-[#2A3D75] to-[#44599B] text-white flex items-center justify-between border-b-2 border-[#ABD305]">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-full bg-white p-0.5 flex items-center justify-center shrink-0 shadow-sm border border-[#ABD305]">
+            <img src="/static/img/Lambang-UM.png" alt="UM" class="w-full h-full object-contain" />
+          </div>
+          <span class="font-bold text-sm">Katalog Pedoman UM 2017</span>
+        </div>
+        <button onclick="togglePedomanDrawer()" class="text-indigo-200 hover:text-white p-1 rounded transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Drawer Search -->
+      <div class="p-3 border-b border-slate-100 bg-slate-50">
+        <div class="flex gap-2">
+          <input 
+            type="text" 
+            id="drawer-search-input"
+            placeholder="Cari kata kunci pedoman..." 
+            class="flex-1 text-xs border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:border-[#44599B] bg-white"
+            onkeydown="if(event.key==='Enter') searchPedomanInDrawer()"
+          >
+          <button onclick="searchPedomanInDrawer()" class="bg-[#16244D] hover:bg-[#2A3D75] text-[#FFF500] text-xs px-3.5 py-2 rounded-lg font-bold transition border border-[#ABD305]/30">
+            Cari
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Results Area -->
+      <div id="drawer-search-results" class="p-3 bg-amber-50/50 border-b border-amber-100 empty:hidden max-h-48 overflow-y-auto"></div>
+
+      <!-- Chapter List -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-3">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Daftar Bab Pedoman</div>
+        {% for ch in chapters %}
+        <div class="p-3 rounded-xl border border-slate-200 hover:border-[#ABD305] bg-slate-50/50 transition shadow-sm hover:shadow">
+          <div class="flex items-center justify-between text-xs font-bold text-[#16244D] mb-1">
+            <span>Bab {{ ch.number }}: {{ ch.title }}</span>
+            <span class="bg-[#F4FADC] text-[#3F6212] border border-[#D9F99D] px-1.5 py-0.5 rounded text-[10px] font-semibold">Hlm. {{ ch.pages }}</span>
+          </div>
+          <p class="text-[11px] text-slate-500 mb-2">{{ ch.desc }}</p>
+          <button 
+            onclick="sendQuickPrompt('Jelaskan aturan lengkap Bab {{ ch.number }}: {{ ch.title }} (Hlm. {{ ch.pages }})')"
+            class="text-[11px] text-[#44599B] font-bold hover:underline"
+          >
+            Pelajari Bab Ini &rarr;
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Modal Konfirmasi Hapus -->
+  <div id="delete-confirm-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-[#16244D]/60 backdrop-blur-sm" onclick="closeDeleteConfirm()"></div>
+    <div class="bg-white rounded-2xl shadow-xl border-t-4 border-[#ABD305] max-w-sm w-full relative z-10 modal-fade-in overflow-hidden">
+      <div class="p-5 sm:p-6 text-center">
+        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+          <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-[#16244D] mb-2">Hapus Sesi Percakapan?</h3>
+        <p class="text-sm text-slate-500 mb-6">
+          Anda akan menghapus sesi <strong id="delete-target-id" class="text-[#44599B]"></strong>. Seluruh riwayat percakapan ini akan dihapus secara permanen.
+        </p>
+        <div class="flex items-center gap-3 w-full">
+          <button onclick="closeDeleteConfirm()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl transition text-sm">
+            Batal
+          </button>
+          <button onclick="executeDeleteThread()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl transition shadow-sm shadow-red-500/30 text-sm">
+            Ya, Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Alert -->
+  <div id="alert-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-[#16244D]/60 backdrop-blur-sm" onclick="closeAlert()"></div>
+    <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full relative z-10 modal-fade-in overflow-hidden">
+      <div id="alert-border" class="h-1.5 w-full bg-[#44599B]"></div>
+      <div class="p-5 sm:p-6 text-center">
+        <div id="alert-icon-container" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full mb-4">
+          <!-- Icon injected by JS -->
+        </div>
+        <h3 id="alert-title" class="text-lg font-bold text-[#16244D] mb-2">Pemberitahuan</h3>
+        <p id="alert-message" class="text-sm text-slate-500 mb-6"></p>
+        <button onclick="closeAlert()" class="w-full bg-[#16244D] hover:bg-[#2A3D75] text-[#FFF500] font-bold py-2.5 rounded-xl transition shadow text-sm border border-[#ABD305]/30">
+          Mengerti
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Application JS -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
